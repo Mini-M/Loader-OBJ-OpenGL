@@ -20,7 +20,7 @@ char ch='1';
 //wavefront .obj loader code begins
 void loadObj(char *fname)
 {
-	// Creation des structures pour stocker les coordonnées des vertex et de normales
+	// Creation des structures pour stocker les coordonnees des vertex et de normales
 	struct Triplet
 	{
 		int x,y,z;
@@ -28,7 +28,7 @@ void loadObj(char *fname)
 	vector<Triplet> vertex; //Vecteur pour stocker les vertex
 	vector<Triplet> normales; //Vecteur pour stocker les vecteurs normaux
 
-	// Creation de la structure pour les coordonnées de textures
+	// Creation de la structure pour les coordonnees de textures
 	struct Paire
 	{
 		int x,y;
