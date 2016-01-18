@@ -24,11 +24,12 @@ private :
 	std::vector<Triplet> vertex;
 	std::vector<Triplet> normales;
 	std::vector<Paire> vtextures;
+	std::string nomdufichier;
 
 public :
-	myObject();
-	void loadObj (std::string nomdufichier); //charge les vecteurs de points normales et textures
-	void dispObj ();//affiche les faces et textures
-	myObject(std::string nomdufichier);
+	myObject(std::string filename);
+	GLvoid loadObj (); //charge les vecteurs de points normales et textures
+	GLvoid dispObj ();//affiche les faces et textures
+	
 
 };
