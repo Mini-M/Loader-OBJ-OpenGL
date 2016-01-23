@@ -1,3 +1,4 @@
+#pragma once
 #include <Windows.h>
 #include <GL/GL.h>
 #include <GL/glut.h>

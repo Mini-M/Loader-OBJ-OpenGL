@@ -1,3 +1,5 @@
+#pragma once
+
 #include <Windows.h>
 #include <GL/GL.h>
 #include <GL/glut.h>
@@ -7,6 +9,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <vector>
+#include "objet.h"
 
 using namespace std;
 
@@ -34,67 +37,6 @@ void loadObj(char *fname)
 		int x,y;
 	};
 	vector<Paire> vtextures; //Vecteur pour les coordonées de textures
-
-    ifstream fp;
-	fp.open (fname, std::ifstream::in);
-	string line;
-    GLfloat x, y, z;
-	Triplet stockv; //triplet à push_back dans le vecteur
-	Paire stockt; //paire à push_back dans le vecteur
-	int ilim; //taille du vertex
-    elephant=glGenLists(1);
-    if (!fp.is_open())
-    {
-        printf("can't open file %s\n", fname);
-        exit(1);
-    }
-    glPointSize(2.0);
-    glNewList(elephant, GL_COMPILE);
-    {
-        glPushMatrix();
-        glBegin(GL_POINTS);
-        while(!fp.eof())
-        {
-			getline (fp,line);
-			if (line.c_str()[0] =='v')
-			{
-				line[0] = ' ';
-				sscanf(line.c_str(), "%f %f %f", &x, &y, &z);
-				stockv.x = x;
-				stockv.y = y;
-				stockv.z = z;
-				vertex.push_back(stockv);
-				ilim = vertex.size();
-			}
-
-			if (line.c_str()[0] =='vn')
-			{
-				line[0] = ' ';
-				sscanf(line.c_str(), "%f %f %f", &x, &y, &z);
-				stockv.x = x;
-				stockv.y = y;
-				stockv.z = z;
-				normales.push_back(stockv);
-			}
-
-			if (line.c_str()[0] =='vt')
-			{
-				line[0] = ' ';
-				sscanf(line.c_str(), "%f %f", &x, &y);
-				stockt.x = x;
-				stockt.y = y;
-				vtextures.push_back(stockt);
-			}
-        }
-		for (int i = 0; i < ilim; i++)
-		{
-			glVertex3f(vertex[i].x,vertex[i].y,vertex[i].z);
-		}
-        glEnd();
-    }
-    glPopMatrix();
-    glEndList();
-    fp.close();
 }
 //wavefront .obj loader code ends here
 
@@ -138,9 +80,13 @@ int main(int argc,char **argv)
     glutInitWindowPosition(20,20);
     glutCreateWindow("ObjLoader");
     glutReshapeFunc(reshape);
-    glutDisplayFunc(display);
-    glutIdleFunc(display);
-    loadObj("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/teddy.obj");//replace elepham.obj withp orsche.obj or radar.obj or any other .obj to display it
+    //glutDisplayFunc(display);
+    // glutIdleFunc(display);
+    //loadObj("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/teddy.obj");//replace elepham.obj withp orsche.obj or radar.obj or any other .obj to display it
+	myObject teddy("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/teddy.obj");
+	teddy.loadObj();
+	//teddy.dispObj();
     glutMainLoop();
+	
     return 0;
 }
