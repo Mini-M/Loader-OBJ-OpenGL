@@ -13,6 +13,7 @@ using namespace std;
 
 //Variable globale pour la rotation automatique du modèle
 float rot = 0.0f;
+PointObj Mba = PointObj("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/mba1.obj");
 
 //Autres fonctions et main
 
@@ -28,9 +29,6 @@ void reshape(int w,int h)
 void display(void)
 {
 	//Cree un objet et le charge
-	PointObj Mba = PointObj("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/mba1.obj");
-	Mba.loadObj();
-
     glClearColor (0.0,0.0,0.0,1.0);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -46,7 +44,7 @@ void display(void)
 	glPopMatrix();
 
 	//augmente l'incrément de rotation
-	rot=rot+1.5;
+	rot=rot+0.6;
     if(rot>360)rot=rot-360;
 
     glutSwapBuffers(); //swap the buffers
@@ -54,6 +52,7 @@ void display(void)
 
 int main(int argc,char **argv)
 {
+	Mba.loadObj();
     glutInit(&argc,argv);
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGB|GLUT_DEPTH);
     glutInitWindowSize(800,450);
