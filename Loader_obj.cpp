@@ -46,10 +46,11 @@ void display(void)
 	Mba.dispObjFace();
 
 	glPopMatrix();
+	glFlush();
 
 	//augmente l'incrément de rotation
-	//rot=rot+0.6;
-    //if(rot>360)rot=rot-360;
+	rot=rot+5;
+    if(rot>360)rot=rot-360;
 
     glutSwapBuffers(); //swap the buffers
 }
