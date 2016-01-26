@@ -144,11 +144,11 @@ GLvoid PointObj::dispObjFace()
 		{
 			for (int j = 0; j<3; j++)
 			{
-				
-				position = (faces[i][j].x);
-				glVertex3f(vertex[position].x,vertex[position].y,vertex[position].z);
 				position = (faces[i][j].z);
 				glNormal3f(normales[position].x,normales[position].y,normales[position].z);
+				position = (faces[i][j].x);
+				glVertex3f(vertex[position].x,vertex[position].y,vertex[position].z);
+				
 			}
 		}
 		glEnd();
