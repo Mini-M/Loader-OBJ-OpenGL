@@ -39,7 +39,7 @@ GLvoid PointObj::loadObj()
 	{
 		getline (fp,line);
 		//Detection et stockage des lignes correspondant aux vertex
-		if (line.c_str()[0] =='v')
+		if (line.substr(0,2) =="v ")
 		{
 			line[0] = ' ';
 			sscanf(line.c_str(), "%f %f %f", &x, &y, &z);
@@ -49,7 +49,7 @@ GLvoid PointObj::loadObj()
 			vertex.push_back(stockv);
 		}
 		////Detection et stockage des lignes correspondant aux normales
-		if (line.c_str()[0] =='vn')
+		if (line.substr(0,2) =="vn")
 		{
 			line[0] = ' ';
 			line[1] = ' ';
@@ -60,7 +60,7 @@ GLvoid PointObj::loadObj()
 			normales.push_back(stockv);
 		}
 		//Detection et stockage des lignes correspondant aux coordonnées de textures
-		if (line.c_str()[0] =='vt')
+		if (line.substr(0,2)=="vt")
 		{
 			line[0] = ' ';
 			line[1] = ' ';
@@ -74,20 +74,21 @@ GLvoid PointObj::loadObj()
 		{
 			line[0] = ' ';
 			sscanf(line.c_str(), "%f/%f/%f %f/%f/%f %f/%f/%f",&v1, &t1, &n1, &v2, &t2, &n2, &v3, &t3, &n3);
-			sommet1.x=v1;
-			sommet1.y=t1;
-			sommet1.z=n1;
-			sommet2.x=v2;
-			sommet2.y=t2;
-			sommet2.z=n2;
-			sommet3.x=v3;
-			sommet3.y=t3;
-			sommet3.z=n3;
+			sommet1.x=v1-1;
+			sommet1.y=t1-1;
+			sommet1.z=n1-1;
+			sommet2.x=v2-1;
+			sommet2.y=t2-1;
+			sommet2.z=n2-1;
+			sommet3.x=v3-1;
+			sommet3.y=t3-1;
+			sommet3.z=n3-1;
 			face[0] = sommet1;
 			face[1] = sommet2;
 			face[2] = sommet3;
 			faces.push_back(face);
 		}
+		
 	}
 	//Fermeture du fichier
 	fp.close();
@@ -138,16 +139,16 @@ GLvoid PointObj::dispObjFace()
 	{
 		glPushMatrix();
 		glBegin(GL_TRIANGLES);
-		//Parcours tous les points enregistrés
+		//Parcourt tous les points enregistrés
 		for (int i = 0; i < ilim; i++)
 		{
 			for (int j = 0; j<3; j++)
 			{
 				
-				position = (faces[i][j].x) - 1;
+				position = (faces[i][j].x);
 				glVertex3f(vertex[position].x,vertex[position].y,vertex[position].z);
-				//position = (faces[i][j].z) - 1;
-				//glNormal3f(normalize(normales[position].x,normales[position].y,normales[position].z));
+				position = (faces[i][j].z);
+				glNormal3f(normales[position].x,normales[position].y,normales[position].z);
 			}
 		}
 		glEnd();
