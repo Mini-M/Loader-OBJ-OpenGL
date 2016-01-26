@@ -12,12 +12,13 @@
 using namespace std;
 
 //Variable globale pour la rotation automatique du modèle
-float rot = 0.0f;
+
 bool setMode= false;
 PointObj Mba = PointObj("Z:/Adrien et Bryan/Projet/opengl_objloader-master/data/mba1.obj");
 
 
 // Rotations autour de X et Y
+
 GLfloat angleX = 0.0f;
 GLfloat angleY = 0.0f;
 GLint oldX = 0;
@@ -95,7 +96,6 @@ void display(void)
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_DEPTH_TEST);
-	//Cree un objet et le charge
     glClearColor (0.0,0.0,0.0,1.0);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
@@ -106,16 +106,12 @@ void display(void)
 	glRotatef(angleY,1.0f,0.0f,0.0f);
 	glRotatef(angleX,0.0f,1.0f,0.0f);
 	
-	//Affiche l'objet
+	//Affiche l'objet en fonction du mode selectionne
 	
 	Mba.dispChoice(setMode);
 
 	glPopMatrix();
 	glFlush();
-
-	//augmente l'incrément de rotation
-	//rot=rot+5;
-   // if(rot>360)rot=rot-360;
 
     glutSwapBuffers(); //swap the buffers
 }

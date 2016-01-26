@@ -16,7 +16,7 @@ GLvoid PointObj::loadObj()
 	fp.open (filename, std::ifstream::in);
 	//String servant de "tampon" pour lire les lignes du fichiers
 	string line;
-	//Flotant qui serviront à remplir les structures si dessous
+	//Flottants qui serviront à remplir les structures si dessous
     GLfloat x, y, z;
 	GLfloat v1,v2,v3,t1,t2,t3,n1,n2,n3;
 	//triplet qui sert de "tampon" pour remplir les vertex et les normales
@@ -48,7 +48,7 @@ GLvoid PointObj::loadObj()
 			stockv.z = z;
 			vertex.push_back(stockv);
 		}
-		////Detection et stockage des lignes correspondant aux normales
+		//Detection et stockage des lignes correspondant aux normales
 		if (line.substr(0,2) =="vn")
 		{
 			line[0] = ' ';
@@ -99,7 +99,7 @@ GLvoid PointObj::dispObjPoint()
 	//Liste d'affichage
 	GLuint liste;
 
-	//Taille du vertex pour connaitre le nombre de point
+	//Taille du vertex pour connaitre le nombre de points
 	int ilim;
 	ilim = vertex.size();
 
@@ -110,7 +110,7 @@ GLvoid PointObj::dispObjPoint()
 		glPointSize(2.0);
 		glPushMatrix();
 		glBegin(GL_POINTS);
-		//Parcours tous les points enregistrés
+		//Parcourt tous les points enregistrés
 		for (int i = 0; i < ilim; i++)
 		{
 			glVertex3f(vertex[i].x,vertex[i].y,vertex[i].z);
@@ -126,7 +126,7 @@ GLvoid PointObj::dispObjFace()
 	//Liste d'affichage
 	GLuint liste;
 
-	//Taille du vertex pour connaitre le nombre de point
+	//Taille du vertex pour connaitre le nombre de points
 	int ilim;
 	ilim = faces.size();
 
@@ -157,7 +157,7 @@ GLvoid PointObj::dispObjFace()
     glCallList(liste);
 }
 
-GLvoid PointObj::dispChoice(bool mode)
+GLvoid PointObj::dispChoice(bool mode) //affiche les points ou les faces en fonction du booleen d'entree
 {
 	if(mode)
 	{

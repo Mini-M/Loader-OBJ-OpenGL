@@ -34,9 +34,9 @@ private :
 	vector<Triplet> normales;
 	//Structure pour stocker les coordonnees de textures
 	vector<Paire> vtext;
-	//Structure pour stocker les données de face
+	//Structure pour stocker les donnees de face
 	vector<vector<Triplet>> faces;
-	//Nom du fichier a ouvrir
+	//Emplacement du fichier a ouvrir
 	string filename;
 
 public :
@@ -44,10 +44,10 @@ public :
 	PointObj (string nom);
 	//Methode de chargement de l'objet
 	GLvoid loadObj();
-	//Methode d'affichage de l'objet en point
+	//Methode d'affichage de l'objet en points
 	GLvoid dispObjPoint();
 	//Methode d'affichage de l'objet en faces
 	GLvoid dispObjFace();
-	//Methode de selection d'affichate
+	//Methode de selection d'affichage
 	GLvoid dispChoice(bool mode);
 };
