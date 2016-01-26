@@ -28,24 +28,28 @@ void reshape(int w,int h)
 
 void display(void)
 {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
 	//Cree un objet et le charge
     glClearColor (0.0,0.0,0.0,1.0);
     glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 	glPushMatrix();
-    glTranslatef(0,0,-10);
+    glTranslatef(0,-3,-20);
     glColor3f(1.0,0.23,0.27);
     glScalef(0.1,0.1,0.1);
     glRotatef(rot,0,1,0);
 	
 	//Affiche l'objet
-	Mba.dispObjPoint();
+	//Mba.dispObjPoint();
+	Mba.dispObjFace();
 
 	glPopMatrix();
 
 	//augmente l'incrément de rotation
-	rot=rot+0.6;
-    if(rot>360)rot=rot-360;
+	//rot=rot+0.6;
+    //if(rot>360)rot=rot-360;
 
     glutSwapBuffers(); //swap the buffers
 }

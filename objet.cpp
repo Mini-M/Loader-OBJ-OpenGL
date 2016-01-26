@@ -18,10 +18,16 @@ GLvoid PointObj::loadObj()
 	string line;
 	//Flotant qui serviront à remplir les structures si dessous
     GLfloat x, y, z;
+	GLfloat v1,v2,v3,t1,t2,t3,n1,n2,n3;
 	//triplet qui sert de "tampon" pour remplir les vertex et les normales
 	Triplet stockv; 
 	//paire qui sert de "tampon" pour remplir les coordonnées de textures
 	Paire stockt; 
+	//vector et triplet "tampon" pour les données de faces
+	vector<Triplet> face (3);
+	Triplet sommet1;
+	Triplet sommet2;
+	Triplet sommet3;
 
 	//Lecture du fichier et enregistrement
     if (!fp.is_open())
@@ -32,7 +38,7 @@ GLvoid PointObj::loadObj()
     while(!fp.eof())
 	{
 		getline (fp,line);
-		//Detection est stockage des lignes correspondant aux vertex
+		//Detection et stockage des lignes correspondant aux vertex
 		if (line.c_str()[0] =='v')
 		{
 			line[0] = ' ';
@@ -42,24 +48,45 @@ GLvoid PointObj::loadObj()
 			stockv.z = z;
 			vertex.push_back(stockv);
 		}
-		////Detection est stockage des lignes correspondant aux normales
+		////Detection et stockage des lignes correspondant aux normales
 		if (line.c_str()[0] =='vn')
 		{
 			line[0] = ' ';
+			line[1] = ' ';
 			sscanf(line.c_str(), "%f %f %f", &x, &y, &z);
 			stockv.x = x;
 			stockv.y = y;
 			stockv.z = z;
 			normales.push_back(stockv);
 		}
-		//Detection est stockage des lignes correspondant aux coordonnées de textures
+		//Detection et stockage des lignes correspondant aux coordonnées de textures
 		if (line.c_str()[0] =='vt')
 		{
 			line[0] = ' ';
+			line[1] = ' ';
 			sscanf(line.c_str(), "%f %f", &x, &y);
 			stockt.x = x;
 			stockt.y = y;
 			vtext.push_back(stockt);
+		}
+		//Detection et stockage des faces
+		if (line.c_str()[0] == 'f')
+		{
+			line[0] = ' ';
+			sscanf(line.c_str(), "%f/%f/%f %f/%f/%f %f/%f/%f",&v1, &t1, &n1, &v2, &t2, &n2, &v3, &t3, &n3);
+			sommet1.x=v1;
+			sommet1.y=t1;
+			sommet1.z=n1;
+			sommet2.x=v2;
+			sommet2.y=t2;
+			sommet2.z=n2;
+			sommet3.x=v3;
+			sommet3.y=t3;
+			sommet3.z=n3;
+			face[0] = sommet1;
+			face[1] = sommet2;
+			face[2] = sommet3;
+			faces.push_back(face);
 		}
 	}
 	//Fermeture du fichier
@@ -86,6 +113,42 @@ GLvoid PointObj::dispObjPoint()
 		for (int i = 0; i < ilim; i++)
 		{
 			glVertex3f(vertex[i].x,vertex[i].y,vertex[i].z);
+		}
+		glEnd();
+	}
+    glEndList();
+    glCallList(liste);
+}
+
+GLvoid PointObj::dispObjFace()
+{
+	//Liste d'affichage
+	GLuint liste;
+
+	//Taille du vertex pour connaitre le nombre de point
+	int ilim;
+	ilim = faces.size();
+
+	//Tampon pour la lecture
+	int position;
+
+	//Remplissage de la liste
+	liste=glGenLists(1);
+	glNewList(liste, GL_COMPILE);
+	{
+		glPushMatrix();
+		glBegin(GL_TRIANGLES);
+		//Parcours tous les points enregistrés
+		for (int i = 0; i < ilim; i++)
+		{
+			for (int j = 0; j<3; j++)
+			{
+				
+				position = (faces[i][j].x) - 1;
+				glVertex3f(vertex[position].x,vertex[position].y,vertex[position].z);
+				//position = (faces[i][j].z) - 1;
+				//glNormal3f(normalize(normales[position].x,normales[position].y,normales[position].z));
+			}
 		}
 		glEnd();
 	}
