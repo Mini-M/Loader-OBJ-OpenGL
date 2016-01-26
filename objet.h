@@ -48,4 +48,6 @@ public :
 	GLvoid dispObjPoint();
 	//Methode d'affichage de l'objet en faces
 	GLvoid dispObjFace();
+	//Methode de selection d'affichate
+	GLvoid dispChoice(bool mode);
 };

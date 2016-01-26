@@ -156,3 +156,16 @@ GLvoid PointObj::dispObjFace()
     glEndList();
     glCallList(liste);
 }
+
+GLvoid PointObj::dispChoice(bool mode)
+{
+	if(mode)
+	{
+		dispObjFace();
+	}
+
+	else
+	{
+		dispObjPoint();
+	}
+}
